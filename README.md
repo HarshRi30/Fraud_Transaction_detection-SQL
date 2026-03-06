@@ -18,7 +18,7 @@ The relational database is normalized and consists of four primary tables.
 3. `Transactions`: The core ledger of financial activity.
 4. `Alerts`: The destination table for flagged anomalies.
 
-## 🚀 How to Run This Project (Setup Instructions)
+## How to Run This Project (Setup Instructions)
 
 1. **Generate Data:** Run the Python data generator (or use the provided CSV files).
 2. **Build Schema:** Execute the `CREATE TABLE` DDL statements in `Table_creation_queries.sql` to build the Postgres tables.
@@ -53,3 +53,15 @@ SUM(
         ELSE 5 
     END
 ) AS risk_score
+```
+
+## Analytics & Business Intelligence (`analysis.sql`)
+To extract actionable insights from the generated alerts, I developed a comprehensive suite of analytical queries located in the `analysis.sql` file. This script serves as the backend logic for a Fraud Analyst Dashboard, transforming raw data into business intelligence.
+
+**Key Analyses Included:**
+* **Executive Priority Funnel:** Groups 10,000+ alerts into Critical, High, and Medium buckets to optimize investigation workflows and calculate total dollars at risk per tier.
+* **Threat Profiling:** Identifies specific users and devices with the highest volume of suspicious activity and the highest aggregate risk scores.
+* **Spatio-Temporal Tracking:** Pinpoints geographic fraud hotspots (City/Country) and extracts timestamps to identify "Night Owl" attack trends (e.g., spikes in fraud between 2 AM and 4 AM).
+* **Merchant Vulnerability:** Analyzes which shopping categories (e.g., Tech vs. Retail) are targeted most frequently and calculates the average fraudulent transaction value.
+
+*Technical highlights: Advanced Aggregations (`GROUP BY`), Window Functions (`OVER(PARTITION BY)`), Time-Series Analysis (`EXTRACT`), and Conditional Logic (`CASE WHEN`).*
